@@ -1,16 +1,29 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import FormContainer from '../components/FormContainer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { registerUser } from '../redux/actions/userAction';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { userInfo, loading, error } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/');
+    }
+  }, [navigate, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -21,19 +34,19 @@ const RegisterPage = () => {
     if (password !== confirmPassword) {
       toast.error('Password and confirm password are not match');
     } else {
-      //   dispatch(registerUser(name, email, password));
+      dispatch(registerUser(name, email, password));
     }
   };
 
-  //   if (loading) {
-  //     return <Loader />;
-  //   }
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <FormContainer>
       <h1 className="text-center">Sign Up</h1>
       <div>
-        {/* {error && <Message variant="danger">{error}</Message>} */}
+        {error && <Message variant="danger">{error}</Message>}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>

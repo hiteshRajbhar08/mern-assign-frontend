@@ -55,7 +55,7 @@ const LoginPage = () => {
         </Form>
         <Row className="py-3">
           <Col>
-            New Customer?
+            New to an Account?
             <Link to="/register">Register</Link>
           </Col>
         </Row>
