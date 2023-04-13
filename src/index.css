@@ -12,9 +12,14 @@ code {
     monospace;
 }
 
-.home {
+.home,
+.profile {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 80vh;
+}
+
+.profile {
+  flex-direction: column;
 }

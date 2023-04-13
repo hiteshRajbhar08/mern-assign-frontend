@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import Toast from './utils/Toast';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/signin" element={<LoginPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </Container>
       </main>

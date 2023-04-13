@@ -8,6 +8,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     userInfo: userInfoFromStorage,
+    userDetails: {},
     loading: false,
     error: null,
   },
@@ -28,6 +29,10 @@ const userSlice = createSlice({
     },
     setError: (state, action) => {
       state.error = action.payload;
+      state.loading = false;
+    },
+    setUserDetails: (state, action) => {
+      state.userDetails = action.payload;
       state.loading = false;
     },
   },

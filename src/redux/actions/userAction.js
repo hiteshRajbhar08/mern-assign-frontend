@@ -70,6 +70,34 @@ export const registerUser = (name, email, password) => async (dispatch) => {
   }
 };
 
+// get user details
+export const getUserDetails = (userId) => async (dispatch, getState) => {
+  try {
+    dispatch(userActions.setLoading());
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${getState().user.userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/users/${userId}`, config);
+
+    dispatch(userActions.setUserDetails(data));
+  } catch (error) {
+    dispatch(
+      userActions.setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+          ? error.message
+          : 'An unexpected error has occured. Please try again later.'
+      )
+    );
+    toast.error(error.response.data.message);
+  }
+};
+
 // logout user
 export const logoutUser = () => async (dispatch) => {
   localStorage.removeItem('userInfo');
